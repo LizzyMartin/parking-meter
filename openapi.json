@@ -1,0 +1,700 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Conductor",
+      "description": "Conductor management"
+    },
+    {
+      "name": "Vehicles",
+      "description": "Vehicles management"
+    }
+  ],
+  "paths": {
+    "/vehicles": {
+      "get": {
+        "tags": [
+          "Vehicles"
+        ],
+        "description": "Get all vehicles",
+        "operationId": "getVehicles",
+        "responses": {
+          "200": {
+            "description": "All vehicles listed successfully!",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Vehicle"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Vehicles"
+        ],
+        "description": "Update vehicle to database",
+        "operationId": "updateVehicle",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VehicleDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Vehicle updated successfully!",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Vehicles"
+        ],
+        "description": "Add a new vehicle to database",
+        "operationId": "addVehicle",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VehicleDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Vehicle added successfully!",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Vehicles"
+        ],
+        "description": "Delete vehicle to database",
+        "operationId": "deleteVehicle",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VehicleDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Vehicle deleted successfully!",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/conductor": {
+      "get": {
+        "tags": [
+          "Conductor"
+        ],
+        "operationId": "getAll",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Conductor"
+        ],
+        "operationId": "updateConductor",
+        "parameters": [
+          {
+            "name": "conductorDTO",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ConductorDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Conductor"
+        ],
+        "operationId": "addConductor",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConductorDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/parking/start": {
+      "post": {
+        "tags": [
+          "parking-meter-controller"
+        ],
+        "operationId": "start",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ParkingMeterDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/parking/pay/{id}": {
+      "post": {
+        "tags": [
+          "parking-meter-controller"
+        ],
+        "operationId": "pay",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReceiptDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/parking/finish/{id}": {
+      "post": {
+        "tags": [
+          "parking-meter-controller"
+        ],
+        "operationId": "finish",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ParkingMeterDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vehicles/plate/{plate}": {
+      "get": {
+        "tags": [
+          "Vehicles"
+        ],
+        "description": "Get a specific vehicle",
+        "operationId": "getVehicleByPlate",
+        "parameters": [
+          {
+            "name": "plate",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Vehicle listed successfully!",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vehicle"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vehicles/conductor/{cpf}": {
+      "get": {
+        "tags": [
+          "Vehicles"
+        ],
+        "description": "Get all vehicles from conductor",
+        "operationId": "getVehicleByConductor",
+        "parameters": [
+          {
+            "name": "cpf",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Vehicle listed successfully!",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Vehicle"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/parking/cpf/{cpf}": {
+      "get": {
+        "tags": [
+          "parking-meter-controller"
+        ],
+        "operationId": "getByCpf",
+        "parameters": [
+          {
+            "name": "cpf",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/conductor/{cpf}": {
+      "get": {
+        "tags": [
+          "Conductor"
+        ],
+        "operationId": "getByCpf_1",
+        "parameters": [
+          {
+            "name": "cpf",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Conductor"
+        ],
+        "operationId": "deleteByCpf",
+        "parameters": [
+          {
+            "name": "cpf",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/conductor/id/{id}": {
+      "get": {
+        "tags": [
+          "Conductor"
+        ],
+        "operationId": "getById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "VehicleDTO": {
+        "required": [
+          "brand",
+          "conductorId",
+          "plate"
+        ],
+        "type": "object",
+        "properties": {
+          "conductorId": {
+            "type": "string"
+          },
+          "brand": {
+            "type": "string"
+          },
+          "plate": {
+            "type": "string"
+          }
+        }
+      },
+      "ConductorDTO": {
+        "required": [
+          "address",
+          "cpf",
+          "email",
+          "favoritePaymentType",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "favoritePaymentType": {
+            "type": "string",
+            "enum": [
+              "CREDIT_CARD",
+              "DEBIT",
+              "PIX"
+            ]
+          }
+        }
+      },
+      "ParkingMeterDTO": {
+        "required": [
+          "paymentTimeType",
+          "paymentType",
+          "plate"
+        ],
+        "type": "object",
+        "properties": {
+          "hours": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "plate": {
+            "type": "string"
+          },
+          "paymentTimeType": {
+            "type": "string",
+            "enum": [
+              "FIXED",
+              "PER_HOUR"
+            ]
+          },
+          "paymentType": {
+            "type": "string",
+            "enum": [
+              "CREDIT_CARD",
+              "DEBIT",
+              "PIX"
+            ]
+          }
+        }
+      },
+      "ReceiptDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "totalToPay": {
+            "type": "number",
+            "format": "double"
+          },
+          "timeParked": {
+            "type": "string"
+          },
+          "vehicle": {
+            "$ref": "#/components/schemas/VehicleDTO"
+          },
+          "availablePaymentTypes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "CREDIT_CARD",
+                "DEBIT",
+                "PIX"
+              ]
+            }
+          }
+        }
+      },
+      "Conductor": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "favoritePaymentType": {
+            "type": "string",
+            "enum": [
+              "CREDIT_CARD",
+              "DEBIT",
+              "PIX"
+            ]
+          }
+        }
+      },
+      "Vehicle": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "brand": {
+            "type": "string"
+          },
+          "plate": {
+            "type": "string"
+          },
+          "conductor": {
+            "$ref": "#/components/schemas/Conductor"
+          }
+        }
+      },
+      "Pageable": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
