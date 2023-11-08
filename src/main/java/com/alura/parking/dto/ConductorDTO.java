@@ -3,6 +3,7 @@ package com.alura.parking.dto;
 import com.alura.parking.enums.PaymentType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +30,7 @@ public class ConductorDTO {
     @NotBlank(message = "Complete the field email")
     private String email;
 
-    @NotBlank(message = "Complete the field favoritePaymentType")
+    @NotNull(message = "Complete the field favoritePaymentType")
     private PaymentType favoritePaymentType;
 
 }

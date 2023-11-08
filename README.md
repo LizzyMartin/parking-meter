@@ -18,6 +18,7 @@ Mexer com datas é sempre complicado 😅, mas com essa exceção foi possível 
 
 - spring-boot 3.x.x
 - gradle
+- scheduler (para notificar quando estiver para expirar ou aumentar a hora)
 - h2 (banco de dados em memória)
 - cache (utilizando o cache do próprio spring para evitar muitas requisições iguais ao banco de dados)
 - mapstruct (melhor performance ao fazer o mapper)
