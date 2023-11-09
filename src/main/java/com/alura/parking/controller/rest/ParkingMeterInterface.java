@@ -1,7 +1,7 @@
 package com.alura.parking.controller.rest;
 
 import com.alura.parking.dto.ParkingMeterDTO;
-import com.alura.parking.dto.ReceiptDTO;
+import com.alura.parking.enums.PaymentType;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,5 +23,5 @@ public interface ParkingMeterInterface {
     ResponseEntity<?> finish(@PathVariable Long id, @RequestBody @Valid ParkingMeterDTO parkingMeterDTO);
 
     @PostMapping("/pay/{id}")
-    ResponseEntity<?> pay(@PathVariable Long id, @RequestBody @Valid ReceiptDTO receiptDTO);
+    ResponseEntity<?> pay(@PathVariable Long id, @RequestBody @Valid PaymentType paymentType);
 }

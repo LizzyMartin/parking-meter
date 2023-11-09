@@ -8,7 +8,7 @@ A documentação técnica está disponível via swagger utilizando o padrão da 
 
 - http://localhost:8080/swagger-ui/index.html#/
 
-Ou então, olhar o arquivo disponível [aqui](link).
+Ou então, olhar o arquivo disponível [aqui](openapi.json).
 
 ## Desafios encontrados
 

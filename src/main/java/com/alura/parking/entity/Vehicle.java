@@ -1,6 +1,5 @@
 package com.alura.parking.entity;
 
-import com.alura.parking.service.ConductorService;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

@@ -6,5 +6,7 @@ public class ConductorNotFoundException extends Exception {
         super();
     }
 
-    public ConductorNotFoundException(String message) { super(message); }
+    public ConductorNotFoundException(String message) {
+        super(message);
+    }
 }

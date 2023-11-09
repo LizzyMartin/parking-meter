@@ -6,5 +6,7 @@ public class VehicleNotFoundException extends Exception {
         super();
     }
 
-    public VehicleNotFoundException(String message) { super(message); }
+    public VehicleNotFoundException(String message) {
+        super(message);
+    }
 }

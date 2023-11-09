@@ -4,12 +4,17 @@ import com.alura.parking.dto.ParkingMeterDTO;
 import com.alura.parking.entity.ParkingMeter;
 import com.alura.parking.enums.PaymentTimeType;
 import com.alura.parking.enums.PaymentType;
+import com.alura.parking.enums.Status;
+import com.alura.parking.exceptions.InvalidPaymentException;
 import com.alura.parking.exceptions.VehicleNotFoundException;
 import com.alura.parking.repository.ConductorRepository;
 import com.alura.parking.repository.ParkingMeterRepository;
 import com.alura.parking.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class ParkingMeterService {
@@ -38,15 +43,27 @@ public class ParkingMeterService {
 
     }
 
-    public void finish(Long id, ParkingMeterDTO parkingMeterDTO) throws VehicleNotFoundException {
+    public Map<String, String> finish(Long id, ParkingMeterDTO parkingMeterDTO) throws VehicleNotFoundException {
         var vehicle = this.vehicleRepository.findByPlate(parkingMeterDTO.getPlate()).orElseThrow(VehicleNotFoundException::new);
-        var parking = this.parkingMeterRepository.findById(id).orElseThrow();
+        var parking = this.parkingMeterRepository.findByIdAndVehicleAndStatus(id, vehicle, Status.ACTIVE).orElseThrow();
+        parking.finish();
         this.parkingMeterRepository.save(parking);
+
+        return getResponse(parking);
     }
 
-    public void pay(Long id, ParkingMeterDTO parkingMeterDTO) {
-        var parking = this.parkingMeterRepository.findById(id).orElseThrow();
-//        parking.pay(parkingMeterDTO.getPaymentTimeType())
+    private static HashMap<String, String> getResponse(ParkingMeter parking) {
+        HashMap<String, String> response = new HashMap<>();
+        response.put("timeParked", parking.getTimeParked().toString());
+        response.put("tax", parking.getPaymentTimeType().getName());
+        response.put("total", parking.getTotalToPay().toString());
+        return response;
+    }
+
+    public void pay(Long id, PaymentType paymentType) throws InvalidPaymentException {
+        var parking = this.parkingMeterRepository.findByIdAndPaid(id, false).orElseThrow();
+        parking.pay(paymentType);
+        this.parkingMeterRepository.save(parking);
     }
 
 }

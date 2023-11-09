@@ -6,5 +6,7 @@ public class InvalidPaymentException extends Exception {
         super();
     }
 
-    public InvalidPaymentException(String message) { super(message); }
+    public InvalidPaymentException(String message) {
+        super(message);
+    }
 }

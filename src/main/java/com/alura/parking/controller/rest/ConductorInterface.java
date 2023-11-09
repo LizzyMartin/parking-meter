@@ -1,7 +1,6 @@
 package com.alura.parking.controller.rest;
 
 import com.alura.parking.dto.ConductorDTO;
-import com.alura.parking.entity.Conductor;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;

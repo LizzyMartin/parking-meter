@@ -2,7 +2,7 @@ package com.alura.parking.controller;
 
 import com.alura.parking.controller.rest.ParkingMeterInterface;
 import com.alura.parking.dto.ParkingMeterDTO;
-import com.alura.parking.dto.ReceiptDTO;
+import com.alura.parking.enums.PaymentType;
 import com.alura.parking.exceptions.VehicleNotFoundException;
 import com.alura.parking.service.ParkingMeterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,20 +37,20 @@ public class ParkingMeterController implements ParkingMeterInterface {
     @Override
     public ResponseEntity<?> finish(Long id, ParkingMeterDTO parkingMeterDTO) {
         try {
-            this.service.finish(id, parkingMeterDTO);
-            return ResponseEntity.ok().build();
+            var receipt = this.service.finish(id, parkingMeterDTO);
+            return ResponseEntity.ok(receipt);
         } catch (VehicleNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
     }
 
     @Override
-    public ResponseEntity<?> pay(Long id, ReceiptDTO receiptDTO) {
+    public ResponseEntity<?> pay(Long id, PaymentType paymentType) {
         try {
-            this.service.pay(id, null);
+            this.service.pay(id, paymentType);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.badRequest().build();
         }
     }
 }
